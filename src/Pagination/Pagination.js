@@ -49,6 +49,8 @@ function Pagination() {
     let pages = [];
     let temp = 0;
 
+    localStorage.setItem("pgno", 1)
+
     for (let i = 0; i < limit; i++) {
       pageLimits.push({ upperLimit: temp, lowerLimit: temp + 4 });
       pages.push(i);
@@ -129,12 +131,12 @@ function Pagination() {
           <option value="male">male</option>
           <option value="female">female</option>
         </select>
+        <button onClick={() => setDataView(sampleData)}>Reset</button>
       </div>
       <p style={{ maxWidth: "420px" }}>
         Refresh page to check persistant page numbers. Persistant page numbers
         are reset when filter is applied
       </p>
-      <button onClick={() => setDataToShow(sampleData)}>Reset</button>
       <div>
         <h4 style={{ marginTop: "50px", marginBottom: "10px" }}>All Data</h4>
         <div>
