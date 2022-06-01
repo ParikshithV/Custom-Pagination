@@ -134,6 +134,22 @@ function Pagination() {
         Refresh page to check persistant page numbers. Persistant page numbers
         are reset when filter is applied
       </p>
+      <button onClick={() => setDataToShow(sampleData)}>Reset</button>
+      <div>
+        <h4 style={{ marginTop: "50px", marginBottom: "10px" }}>All Data</h4>
+        <div>
+          {dataToShow.map((data, index) => {
+            return (
+              <div style={{ display: "flex", flexDirection: "row" }}>
+                <p style={styles.data}>{index}</p>
+                <p style={styles.data}>{data.name}</p>
+                <p style={styles.data}>{data.age}</p>
+                <p style={styles.data}>{data.sex}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
