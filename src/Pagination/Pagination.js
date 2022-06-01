@@ -110,14 +110,14 @@ function Pagination() {
         <p> </p>
         {pageNumbers.map((no) => {
           return (
-            <p
+            <div
               style={styles.pgBtn}
               onClick={() => (
                 setCurrentPage(no + 1), localStorage.setItem("pgno", no + 1)
               )}
             >
               {no + 1}
-            </p>
+            </div>
           );
         })}
       </div>
