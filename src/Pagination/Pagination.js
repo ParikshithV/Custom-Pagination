@@ -49,8 +49,6 @@ function Pagination() {
     let pages = [];
     let temp = 0;
 
-    localStorage.setItem("pgno", 1)
-
     for (let i = 0; i < limit; i++) {
       pageLimits.push({ upperLimit: temp, lowerLimit: temp + 4 });
       pages.push(i);
@@ -88,6 +86,7 @@ function Pagination() {
 
   function handleGenderFilter(gender) {
     setCurrentPage(1);
+    localStorage.setItem("pgno", 1);
 
     const tempData = sampleData.filter((data) => data.sex === gender);
     console.log("tempData", tempData);
