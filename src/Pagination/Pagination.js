@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./pagination.css";
 
 function Pagination() {
   const styles = {
@@ -33,6 +34,9 @@ function Pagination() {
   const [pageNos, setPageNos] = useState([]);
   const [pageNumbers, setPageNumbers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [dataPerPage, setDataPerPage] = useState(4);
+  const [visibleId, setVisibleId] = useState([]);
+  const [idToDelete, setIdToDelete] = useState([]);
 
   useEffect(() => {
     setDataView(sampleData);
@@ -43,7 +47,7 @@ function Pagination() {
   }, []);
 
   function setDataView(data) {
-    const limit = data.length / 4;
+    const limit = data.length / dataPerPage;
     console.log("limit", limit);
     let pageLimits = [];
     let pages = [];
@@ -60,8 +64,14 @@ function Pagination() {
     setPageNos([...pageLimits]);
   }
 
+  function selectVisibleId(visIndex) {
+    setIdToDelete(visibleId);
+    console.log(visIndex);
+  }
+
   function pageView(pg) {
     console.log("limits", pageNos);
+    let visIndex = [];
 
     if (pageNos.length > 0) {
       const ul = pageNos[pg - 1].upperLimit;
@@ -69,16 +79,42 @@ function Pagination() {
 
       return (
         <div>
-          {dataToShow.slice(ul, ll).map((data, index) => {
-            return (
-              <div style={{ display: "flex", flexDirection: "row" }}>
-                <p style={styles.data}>{index + ul}</p>
-                <p style={styles.data}>{data.name}</p>
-                <p style={styles.data}>{data.age}</p>
-                <p style={styles.data}>{data.sex}</p>
-              </div>
-            );
-          })}
+          <table>
+            <tr>
+              <th>
+                <input
+                  type={"checkbox"}
+                  onChange={(e) => {
+                    e.target.checked && selectVisibleId(visIndex);
+                  }}
+                />
+              </th>
+              <th>Index</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Gender</th>
+            </tr>
+            {dataToShow.slice(ul, ll).map((data, index) => {
+              visIndex.push(index + ul);
+              return (
+                <tr>
+                  <td>
+                    <input type={"checkbox"} />
+                  </td>
+                  <td>{index + ul}</td>
+                  <td>{data.name}</td>
+                  <td>{data.age}</td>
+                  <td>{data.sex}</td>
+                </tr>
+              );
+            })}
+          </table>
+          {/* <input
+            type={"number"}
+            onChange={(e) => (
+              setDataPerPage(e.target.value), setDataView(dataToShow)
+            )}
+          /> */}
         </div>
       );
     }
